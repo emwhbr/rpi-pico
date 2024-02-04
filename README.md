@@ -7,7 +7,9 @@ Exploring the Raspberry Pi Pico W.
 Clone and preparations:
 ```
 git clone https://github.com/emwhbr/rpi-pico.git
-cd rpi-pico/pico-sdk
+cd rpi-pico
+git submodule update --init
+cd pico-sdk
 git submodule update --init
 cd ..
 ```
