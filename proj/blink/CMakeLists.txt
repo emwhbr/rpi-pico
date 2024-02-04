@@ -9,6 +9,9 @@ project(blink C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+# Include common project functions
+include($ENV{REPO_DIR}/proj/common_import.cmake)
+
 # Creates a pico-sdk subdirectory in our project for the libraries
 pico_sdk_init()
 
