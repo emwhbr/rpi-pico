@@ -18,5 +18,8 @@ export PICO_PLATFORM=rp2040
 # Raspberry Pi Pico board type/variant
 export PICO_BOARD=pico_w
 
+# FreeRTOS
+export FREERTOS_KERNEL_PATH=${REPO_DIR}/freertos/FreeRTOS-Kernel
+
 # Update PATH
 export PATH=${ARM}/bin:${OPENOCD}/bin:${PATH}
