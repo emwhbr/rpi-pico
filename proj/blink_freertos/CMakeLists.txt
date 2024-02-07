@@ -21,11 +21,12 @@ pico_sdk_init()
 # Tell CMake where to find the executable source file
 add_executable(${PROJECT_NAME} 
    main.c
+   FreeRTOSConfig.h
 )
 
 # FreeRTOS include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
-   $ENV{REPO_DIR}/freertos/
+   ${CMAKE_CURRENT_SOURCE_DIR}
    $ENV{FREERTOS_KERNEL_PATH}/include
    $ENV{FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/include
 )
