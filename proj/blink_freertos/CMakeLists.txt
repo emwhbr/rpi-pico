@@ -34,6 +34,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # Create bin/dis/hex/uf2 files
 pico_add_extra_outputs(${PROJECT_NAME})
 
+# We need the subdirectory for the project support library
+add_subdirectory($ENV{REPO_DIR}/proj/support support)
+
 # Link to pico_stdlib (gpio, time, etc. functions).
 # Add pico_stdlib library which aggregates commonly used features.
 target_link_libraries(${PROJECT_NAME} 
@@ -41,6 +44,7 @@ target_link_libraries(${PROJECT_NAME}
    pico_cyw43_arch_none   # We need CYW to access the GPIO, but we don't need anything else
    FreeRTOS-Kernel        # FreeRTOS kernel
    FreeRTOS-Kernel-Heap4  # FreeRTOS heap implementation
+   proj-support           # Project support library
 )
 
 # Enable/disable USB and UART output
