@@ -7,10 +7,11 @@ Exploring the Raspberry Pi Pico W.
 All projects have been built and tested with:
 
 * Linux Mint 21 Vanessa (x86_64)
-* Arm GNU Toolchain, 13.2.rel1-x86_64-arm-none-eabi
+* Arm GNU Toolchain, 14.2.rel1-x86_64-arm-none-eabi
 * OpenOCD, built from sources (see notes below)
-* SEGGER J-Link debug probe EDU, 10.1
-* SEGGER J-Link software, V7.94h
+* SEGGER J-Link debug probe PRO, 6.0
+* SEGGER J-Link software, V8.16
+* SEGGER Ozone, V3.38d
 
 ## Notes regarding OpenOCD
 OpenOCD was built from sources:
@@ -54,3 +55,15 @@ make
 make program_flash
 make reset
 ```
+## Build a project for debug, example for 'blink_freertos'
+```
+cd proj/blink_freertos/out
+cmake -DCMAKE_BUILD_TYPE=Debug
+make VERBOSE=1
+make program_flash
+make reset
+```
+Start the SEGGER Ozone debugger.<br/>
+Debugger project file: proj/blink_freertos/jlink/blink_freertos.jdebug<br/>
+<br/>
+Attach & Halt Program

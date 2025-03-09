@@ -23,6 +23,14 @@ add_executable(${PROJECT_NAME}
 # Create bin/dis/hex/uf2 files
 pico_add_extra_outputs(${PROJECT_NAME})
 
+# Set the build type, with or without flash
+# Type            Linker script           Comment
+# no_flash        memmap_no_flash.ld      No flash, RAM only, execute in RAM
+# blocked_ram     memmap_blocked_ram.ld   Flash, RAM is non-striped, execute in flash (xip)
+# copy_to_ram     memmap_copy_to_ram.ld   Flash, copy to ram and execute in RAM
+# default         memmap_default.ld       Flash, execute in flash (xip)
+pico_set_binary_type(${PROJECT_NAME} default)
+
 # Link to pico_stdlib (gpio, time, etc. functions).
 # Add pico_stdlib library which aggregates commonly used features.
 target_link_libraries(${PROJECT_NAME} 
