@@ -1,0 +1,11 @@
+; Toggles the pin, on:2 cycles, off:2 cycles.
+;
+
+.program pin_toggle
+
+    set pindirs, 1   ; Set pin to output
+
+main:
+    set pins, 1 [1]  ; Drive pin hi, delay for one cycle
+    set pins, 0      ; Drive pin lo
+    jmp main         ; Set PC to label `main`
