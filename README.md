@@ -12,6 +12,7 @@ All projects have been built and tested with:
 * SEGGER J-Link debug probe PRO, 6.0
 * SEGGER J-Link software, V8.16
 * SEGGER Ozone, V3.38d
+* Raspberry Pi Debug Probe
 
 ## Notes regarding OpenOCD
 OpenOCD was built from sources:
@@ -52,10 +53,11 @@ Change the paths to match the settings on your system.
 cd proj/blink/out
 cmake ..
 make
-make program_flash
-make reset
+make program_flash     # Alt (Raspberry Pi Debug Probe): make_program_flash_rpi
+make reset             # Alt (Raspberry Pi Debug Probe): make_reset_rpi
 ```
 ## Build a project for debug, example for 'blink_freertos'
+Using J-Link debug probe.
 ```
 cd proj/blink_freertos/out
 cmake -DCMAKE_BUILD_TYPE=Debug
@@ -65,5 +67,29 @@ make reset
 ```
 Start the SEGGER Ozone debugger.<br/>
 Debugger project file: proj/blink_freertos/jlink/blink_freertos.jdebug<br/>
-<br/>
 Attach & Halt Program
+<br/>
+<br/>
+<br/>
+
+Alternatively, use the Raspberry Pi Debug Probe.
+```
+cd proj/blink_freertos/out
+cmake -DCMAKE_BUILD_TYPE=Debug
+make VERBOSE=1
+make program_flash_rpi
+make reset_rpi
+```
+Start the OpenOCD debug server...
+```
+openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000"
+```
+... and start the debugger to connect.
+```
+arm-none-eabi-gdb blink_freertos.elf
+target remote localhost:3333
+monitor reset init
+continue
+```
+The debug session can also be integrated with Visual Studio Code.<br/>
+For example configuration, see launcher file in this repo: *.vscode/launch.json*.
