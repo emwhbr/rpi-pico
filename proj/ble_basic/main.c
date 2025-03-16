@@ -3,16 +3,12 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "pico/cyw43_arch.h"
 #include "pico/stdlib.h"
 
-
 #include "debug_io.h"
+#include "ble_support.h"
 
 ///////////////////////////////////////////////////////////////////////////
-
-#define USR_LED_ON()   cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1)
-#define USR_LED_OFF()  cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0)
 
 #define TASK_NAME_LED "LED"
 #define TASK_NAME_BLE "BLE"
@@ -48,18 +44,14 @@ static void ble_task_entry(void* arg)
 {
    printf("Task-%s: Started, core %u\n", TASK_NAME_BLE, get_core_num());
 
-   // Initialize CYW43439
-   printf("Initialize CYW43\n");
-   debug_io_pin_on(false, true, false, false); // DEBUG_IO_PIN_2: high during init
-   if (0 != cyw43_arch_init())
+   if (false == ble_support_init())
    {
       while (true)
       {
-         printf("*** ERROR: CYW43 init failed\n");
-         vTaskDelay(pdMS_TO_TICKS(1000));
+         printf("*** ERROR: BLE init failed\n");
+         vTaskDelay(pdMS_TO_TICKS(5000));
       }
    }
-   debug_io_pin_off(false, true, false, false); 
 
    // Loop forever
    uint32_t loop_counter = 0;

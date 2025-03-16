@@ -16,7 +16,7 @@
           "interface/cmsis-dap.cfg",
           "target/rp2040.cfg"
         ],
-        "svdFile": "${env:PICO_SDK_PATH}/src/rp2040/hardware_regs/RP2040.svd",
+        "svdFile": "pico-sdk/src/rp2040/hardware_regs/RP2040.svd",
         "postRestartCommands": [
           "break main",
           "monitor reset init",
@@ -46,7 +46,7 @@
           "interface/cmsis-dap.cfg",
           "target/rp2040.cfg"
         ],
-        "svdFile": "${env:PICO_SDK_PATH}/src/rp2040/hardware_regs/RP2040.svd",
+        "svdFile": "pico-sdk/src/rp2040/hardware_regs/RP2040.svd",
         "postRestartCommands": [
           "break main",
           "monitor reset init",

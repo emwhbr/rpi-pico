@@ -21,6 +21,7 @@ pico_sdk_init()
 # Tell CMake where to find the executable source file
 add_executable(${PROJECT_NAME} 
    main.c
+   ble_support.c
    FreeRTOSConfig.h
 )
 
@@ -64,5 +65,6 @@ pico_enable_stdio_uart(${PROJECT_NAME} 1)  # Enable UART (default speed 115200)
 # Configure the BT stack and driver
 target_compile_definitions(pico_btstack_cyw43 INTERFACE
    CYW43_LWIP=0
-   CYW43_ENABLE_BLUETOOTH=1 
+   CYW43_ENABLE_BLUETOOTH=1
+   WANT_HCI_DUMP=1
 )
