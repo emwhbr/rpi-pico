@@ -17,6 +17,8 @@
 #define TASK_NAME_LED "LED"
 #define TASK_NAME_BLE "BLE"
 
+#define TASK_CORE_AFFINITY_MASK_LED  ((UBaseType_t)2)  // Core1
+#define TASK_CORE_AFFINITY_MASK_BLE  ((UBaseType_t)1)  // Core0
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -27,6 +29,8 @@ TaskHandle_t g_ble_task_handle;
 
 static void led_task_entry(void* arg)
 {
+   printf("Task-%s: Started, core %u\n", TASK_NAME_LED, get_core_num());
+
    // Loop forever
    while (true)
    {
@@ -42,6 +46,8 @@ static void led_task_entry(void* arg)
 
 static void ble_task_entry(void* arg)
 {
+   printf("Task-%s: Started, core %u\n", TASK_NAME_BLE, get_core_num());
+
    // Initialize CYW43439
    printf("Initialize CYW43\n");
    debug_io_pin_on(false, true, false, false); // DEBUG_IO_PIN_2: high during init
@@ -89,6 +95,7 @@ int main()
                            1, 
                            &g_led_task_handle);
    }
+   vTaskCoreAffinitySet(g_led_task_handle, TASK_CORE_AFFINITY_MASK_LED);
    printf("Create task: %s [%s]\n", TASK_NAME_LED, status ? "OK" : "FAIL");
 
    // Create the task that will handle BLE
@@ -101,6 +108,7 @@ int main()
                            2,
                            &g_ble_task_handle);
    }
+   vTaskCoreAffinitySet(g_ble_task_handle, TASK_CORE_AFFINITY_MASK_BLE);
    printf("Create task: %s [%s]\n", TASK_NAME_BLE, status ? "OK" : "FAIL");
 
    if (pdPASS != status)
