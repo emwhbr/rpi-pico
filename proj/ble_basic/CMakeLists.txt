@@ -52,6 +52,7 @@ target_link_libraries(${PROJECT_NAME}
    pico_stdlib                  # For core functionality
    pico_cyw43_arch_sys_freertos # We need CYW43 in OS mode
    pico_btstack_ble             # BLE stack
+   pico_btstack_classic         # BT classic support
    pico_btstack_cyw43           # BLE stack with CYW43
    FreeRTOS-Kernel              # FreeRTOS kernel
    FreeRTOS-Kernel-Heap4        # FreeRTOS heap implementation
